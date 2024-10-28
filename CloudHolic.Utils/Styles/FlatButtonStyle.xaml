@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:CloudHolic.Utils.Controls">
+    <Style x:Key="ButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="True" StrokeThickness="1"
+                               Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="c:FlatButton">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="c:FlatButton">
+                    <Border Name="Border" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True"
+                            CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}">
+                        <ContentPresenter Name="ContentPresenter" Focusable="False" Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="Border" 
+                                    Value="{Binding MouseOverBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                            <Setter Property="BorderBrush" TargetName="Border"
+                                    Value="{Binding MouseOverBorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" TargetName="Border" 
+                                    Value="{Binding PressedBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                            <Setter Property="BorderBrush" TargetName="Border"
+                                    Value="{Binding PressedBorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="Border" 
+                                    Value="{Binding DisabledBackgroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                            <Setter Property="BorderBrush" TargetName="Border"
+                                    Value="{Binding DisabledBorderBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="ContentPresenter"
+                                    Value="{Binding DisabledForegroundBrush, RelativeSource={RelativeSource FindAncestor, AncestorType=c:FlatButton}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
